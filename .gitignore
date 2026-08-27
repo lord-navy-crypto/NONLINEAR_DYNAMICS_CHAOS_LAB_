@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+.streamlit/secrets.toml
+.coverage
+htmlcov/
+coverage.xml
+build/
+dist/
+*.egg-info/
+.ruff_cache/
+.mypy_cache/
