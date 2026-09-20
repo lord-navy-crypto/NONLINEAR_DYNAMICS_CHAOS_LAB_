@@ -224,7 +224,7 @@ st.markdown(
 )
 
 with st.sidebar:
-    st.header("Shared physical model")
+    st.header("1 · Setup — Shared physical model")
     uploaded = st.file_uploader("Import configuration", type=["json"])
     load_config(uploaded)
     c1, c2 = st.columns(2)
@@ -255,8 +255,10 @@ with st.sidebar:
         st.rerun()
     st.caption(f"Platform version: {APP_VERSION}")
 
+st.caption("Workspace order: Setup → Run → Results → Analysis → Verification / Export.")
+
 overview_tab, driven_tab, kapitza_tab, double_tab, lyap_tab, flip_tab, validation_tab = st.tabs(
-    ["Overview", "Driven pendulum", "Kapitza stability", "Double pendulum", "Lyapunov", "Flip map", "Validation"]
+    ["1 · Overview", "2 · Run — Driven pendulum", "3 · Run — Kapitza stability", "4 · Results — Double pendulum", "5 · Analysis — Lyapunov", "6 · Analysis — Flip map", "7 · Verification"]
 )
 
 with overview_tab:
@@ -376,7 +378,7 @@ with kapitza_tab:
 
 with double_tab:
     st.subheader("Double-pendulum trajectory and mass response")
-    trajectory_panel, mass_panel = st.tabs(["Single trajectory", "Upper-mass response scan"])
+    trajectory_panel, mass_panel = st.tabs(["Results — Single trajectory", "Analysis — Upper-mass response"])
     with trajectory_panel:
         c1, c2 = st.columns(2)
         c1.number_input("Duration (s)", min_value=0.1, max_value=200.0, key="trajectory_duration")
