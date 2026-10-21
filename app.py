@@ -225,6 +225,25 @@ st.markdown(
 
 with st.sidebar:
     st.header("1 · Setup — Shared physical model")
+    with st.expander("Quick setup handoff · no file transfer", expanded=False):
+        st.caption("Pin the current pendulum and dynamical-system inputs in this session; restore after exploring another scenario without manually exporting and re-importing the configuration.")
+        if st.button("Pin current setup", key="pin_chaos_setup"):
+            st.session_state["_pinned_chaos_setup"] = {
+                key: st.session_state[key] for key in defaults()
+            }
+            st.success("Parameters pinned for this session.")
+        pinned = st.session_state.get("_pinned_chaos_setup")
+        if isinstance(pinned, dict):
+            st.caption(f"Pinned {len(pinned)} inputs. Previous numerical results will be cleared when restoring.")
+            if st.button("Restore pinned setup", key="restore_chaos_setup"):
+                for key in defaults():
+                    if key in pinned:
+                        st.session_state[key] = pinned[key]
+                for key in ("drive_result", "kapitza_result", "trajectory_result",
+                            "mass_result", "lyap_result", "lyap_convergence_result",
+                            "flip_result", "validation_result"):
+                    st.session_state[key] = None
+                st.rerun()
     uploaded = st.file_uploader("Import configuration", type=["json"])
     load_config(uploaded)
     c1, c2 = st.columns(2)
